@@ -43,7 +43,7 @@ testData = {
     "Utili(perdite)DaCessioneDiInvestimenti": -10000,
     #"Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte": 270,
     "ImposteSulRedditoDellesercizioDelloperativitaCorrente": 30,
-    "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte": 7000,
+    #"Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte": 7000,
     "Utile(perdita)DiEsercizio": -800,
     "PersonaleDipendente(valoreAssoluto)": 6200,
     "GDPIndex": 6200,
@@ -56,30 +56,31 @@ testData = {
     "CostPerEmployee": 20.99,
 }
 
-from createPredictionModels import createPredictionModels
-models = createPredictionModels (
-    target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte"],#, "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
-    columnsToRemove=["Anno", "Banca"] #non continuous ones
-)
+def test ():
+    from createPredictionModels import createPredictionModels
+    models = createPredictionModels (
+        target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
+        columnsToRemove=["Anno", "Banca"] #non continuous ones
+    )
 
-from evaluateModels import evaulateModels
-evaulateModels (
-    target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte"],#, "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
-    columnsToRemove=["Anno", "Banca"] #non continuous ones
-)
+    from evaluateModels import evaulateModels
+    evaulateModels (
+        target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
+        columnsToRemove=["Anno", "Banca"] #non continuous ones
+    )
 
-from evaluateModels import getModelFromPickle
-for modelName, model in models.items():
-    print(modelName)
-    
-    # Convert testData values to a numpy array and reshape
-    dataToPredictOn = np.array(list(testData.values())).reshape(1, -1)
-    
-    # Get the scaler from the pickle file
-    scaler = getModelFromPickle("scaler", [], [])
-    
-    # Provide feature names to the scaler when transforming data
-    dataToPredictOn_scaled = scaler.transform(dataToPredictOn)
-    print(model.predict(dataToPredictOn_scaled))
-    print()
+    from createPredictionModels import getModelFromPickle
+    for modelName, model in models.items():
+        print(modelName)
+        
+        # Convert testData values to a numpy array and reshape
+        dataToPredictOn = np.array(list(testData.values())).reshape(1, -1)
+        
+        # Get the scaler from the pickle file
+        scaler = getModelFromPickle("scaler", [], [])
+        
+        # Provide feature names to the scaler when transforming data
+        dataToPredictOn_scaled = scaler.transform(dataToPredictOn)
+        print(model.predict(dataToPredictOn_scaled))
+        print()
 

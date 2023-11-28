@@ -7,10 +7,7 @@ import os
 import numpy as np
 
 from createPredictionModels import getModelsFolderPath, concatStrings, getModelFromPickle
-
-def checkFolderExists (path:str):
-    if not os.path.exists(os.path.dirname (path)):
-        os.makedirs (os.path.dirname (path))
+from utils import checkFolderExists, modelsNames, getModelsFolderPath, concatStrings
 
 def evaluate_model(model:any, model_name:str, X_test:np.ndarray, y_test:np.ndarray, targetVariables:list[str]):
     predictions = model.predict(X_test)
@@ -80,13 +77,6 @@ def evaluate_model(model:any, model_name:str, X_test:np.ndarray, y_test:np.ndarr
     plt.savefig(os.path.join(getModelsFolderPath(), "evaluations", model_name + " actual values vs predicted values plot.png"))"""
 
 def evaulateModels (target_variables:list[str], columnsToRemove:list[str]):
-    modelsNames = [
-        "linearRegModel",
-        "ridgeModel",
-        "lassoModel",
-        "elasticNetModel",
-        "decisionTreeModel"
-    ]
     trainTestSplitObj = getModelFromPickle ("trainTestSplitObj", target_variables, columnsToRemove)
 
     for modelName in modelsNames:
