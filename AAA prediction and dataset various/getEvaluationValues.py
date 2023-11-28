@@ -1,6 +1,6 @@
 import re
 import os.path as path
-import os
+import json
 
 from createPredictionModels import concatStrings
 from utils import concatStrings, modelsNames
@@ -56,7 +56,22 @@ def buildModelEvaluationPaths (targetVariables:list[str]):
         modelEvaluationPaths.append(path.join(path.dirname(__file__), "models", "evaluations", modelName + concatStrings(targetVariables) + " evaluation.txt"))
     return modelEvaluationPaths
 
-target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"]
+def getEvaluationValues (targetVariables:list[str]):
+    res = {}
+    for modelEvaluationPath in buildModelEvaluationPaths (targetVariables=target_variables):
+        res[path.basename(modelEvaluationPath)] = read_metrics_file (modelEvaluationPath)
+    return res
+    
+target_variables=[
+    "Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", 
+    "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"
+]
 
-for modelEvaluationPath in buildModelEvaluationPaths (targetVariables=target_variables):
-    print (read_metrics_file (modelEvaluationPath))
+results = getEvaluationValues (targetVariables=target_variables)
+for key, value in results.items():
+    print (key)
+    for key, subValue in value.items():
+        print ("\t", key)
+        print ("\t", subValue)
+
+#print (json.dumps(results))

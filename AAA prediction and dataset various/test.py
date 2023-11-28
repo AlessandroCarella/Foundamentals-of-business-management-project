@@ -56,17 +56,17 @@ testData = {
     "CostPerEmployee": 20.99,
 }
 
-def test ():
+def test (targetVariables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"], columnsToRemove=["Anno", "Banca"]):
     from createPredictionModels import createPredictionModels
     models = createPredictionModels (
-        target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
-        columnsToRemove=["Anno", "Banca"] #non continuous ones
+        target_variables=targetVariables,
+        columnsToRemove=columnsToRemove#non continuous ones
     )
 
     from evaluateModels import evaulateModels
     evaulateModels (
-        target_variables=["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"],
-        columnsToRemove=["Anno", "Banca"] #non continuous ones
+        target_variables=targetVariables,
+        columnsToRemove=columnsToRemove#non continuous ones
     )
 
     from createPredictionModels import getModelFromPickle
@@ -81,6 +81,8 @@ def test ():
         
         # Provide feature names to the scaler when transforming data
         dataToPredictOn_scaled = scaler.transform(dataToPredictOn)
-        print(model.predict(dataToPredictOn_scaled))
-        print()
 
+        print(model.predict(dataToPredictOn_scaled))
+        print(type(model.predict(dataToPredictOn_scaled)))
+
+test()

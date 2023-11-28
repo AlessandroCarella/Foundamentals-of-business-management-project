@@ -97,9 +97,9 @@ def readModels (target_variables:list[str], columnsToRemove:list[str])->dict:
     
     return models
 
-def createPredictionModels (target_variables:list[str], columnsToRemove:list[str]):
+def createPredictionModels (target_variables:list[str], columnsToRemove:list[str], datasetPath:str='newDataset.csv'):
     # Load your dataset (replace 'your_dataset.csv' with the actual filename)
-    data = pd.read_csv('newDataset.csv')
+    data = pd.read_csv(datasetPath)
 
     columnsToRemove.extend (target_variables)
     # Extract features and target variable

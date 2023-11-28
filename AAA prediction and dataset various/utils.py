@@ -5,12 +5,12 @@ import pickle
 
 
 modelsNames = [
-        "linearRegModel",
-        "ridgeModel",
-        "lassoModel",
-        "elasticNetModel",
-        "decisionTreeModel"
-    ]
+    "linearRegModel",
+    "ridgeModel",
+    "lassoModel",
+    "elasticNetModel",
+    "decisionTreeModel"
+]
 
 def checkFolderExists (folderPath:str):
     if not path.exists(path.dirname (folderPath)):
