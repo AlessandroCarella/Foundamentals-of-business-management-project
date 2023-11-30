@@ -98,10 +98,17 @@ def readModels (target_variables:list[str], columnsToRemove:list[str])->dict:
     
     return models
 
-def createPredictionModels (target_variables:list[str], columnsToRemove:list[str], datasetPath:str='./AAA_prediction/newDataset.csv'):
-      
-    # Load your dataset (replace 'your_dataset.csv' with the actual filename)
-    data = pd.read_csv(datasetPath)
+def createPredictionModels (target_variables:list[str], columnsToRemove:list[str], dataset:any):
+    if (isinstance(dataset, str)):
+        if path.exists(dataset):
+            # Load your dataset (replace 'your_dataset.csv' with the actual filename)
+            data = pd.read_csv(dataset)
+        #else:
+        #    data = pd.read_csv('./AAA_prediction/newDataset.csv')
+    elif (isinstance(dataset, pd.DataFrame)):
+        data = dataset
+    else:
+        raise ("The dataset given in input is neither a pd.Dataframe nor a string with a valid path")
 
     columnsToRemove.extend (target_variables)
     # Extract features and target variable
