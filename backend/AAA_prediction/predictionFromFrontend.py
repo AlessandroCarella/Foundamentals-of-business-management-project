@@ -4,58 +4,58 @@ import json
 import os.path as path
 import pandas as pd
 
-from AAA_prediction.createPredictionModels import createPredictionModels
-#from createPredictionModels import createPredictionModels
-from AAA_prediction.evaluateModels import evaulateModels
-#from evaluateModels import evaulateModels
-from AAA_prediction.createPredictionModels import getModelFromPickle
-#from createPredictionModels import getModelFromPickle
+#from AAA_prediction.createPredictionModels import createPredictionModels
+from createPredictionModels import createPredictionModels
+#from AAA_prediction.evaluateModels import evaulateModels
+from evaluateModels import evaulateModels
+#from AAA_prediction.createPredictionModels import getModelFromPickle
+from createPredictionModels import getModelFromPickle
 
 #mockData usable to test the function
 mockData = {
     #"Anno": "31/12/2023",
     #"Banca": "UniBank",
-    "Interessiattividaproventiassimilati": 15500,
-    "DiCuiInteressiAttiviCalcolatiConIlMetodoDellInteresseEffettivo": 12000,
-    "InteressiPassiviEOneriAssimilati": -5000,
+    # "Interessiattividaproventiassimilati": 15500,
+    # "DiCuiInteressiAttiviCalcolatiConIlMetodoDellInteresseEffettivo": 12000,
+    # "InteressiPassiviEOneriAssimilati": -5000,
     "MargineDiInteresse": 9000,
-    "CommissioniAttive": 7500,
-    "CommissioniPassive": -1200,
+    # "CommissioniAttive": 7500,
+    # "CommissioniPassive": -1200,
     "CommissioniNette": 6000,
-    "DividendiEProventiSimili": 400,
-    "RisultatoNettoDellattivitaDiNegoziazione": 800,
-    "RisultatoNettoDellattivitaDiCopertura": 350,
-    "Utili(perdite)DaCessioneORiacquistoDi": 400,
-    "AttivitaFinanziarieValutateAlCostoAmmortizzato": 120,
-    "AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva": 120,
-    "PassivitaFinanziarie": 180,
-    "RisultatoNettoDelleAltreAttivitaEPassivitaFinanziarieValutateAlFairValueConImpattoAContoEconomico": 500,
-    "AttivitaEPassivitaFinanziarieDesignateAlFairValue": 1000,
-    "AltreAttivitaFinanziarieObbligatoriamenteValutateAlFairValue": -550,
+    # "DividendiEProventiSimili": 400,
+    # "RisultatoNettoDellattivitaDiNegoziazione": 800,
+    # "RisultatoNettoDellattivitaDiCopertura": 350,
+    # "Utili(perdite)DaCessioneORiacquistoDi": 400,
+    # "AttivitaFinanziarieValutateAlCostoAmmortizzato": 120,
+    # "AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva": 120,
+    # "PassivitaFinanziarie": 180,
+    # "RisultatoNettoDelleAltreAttivitaEPassivitaFinanziarieValutateAlFairValueConImpattoAContoEconomico": 500,
+    # "AttivitaEPassivitaFinanziarieDesignateAlFairValue": 1000,
+    # "AltreAttivitaFinanziarieObbligatoriamenteValutateAlFairValue": -550,
     "MargineDiIntermediazione": 18000,
-    "RettificheERipreseDiValoreNettePerRischioDiCreditoDi": -1900,
-    "AttivitaFinanziarieValutateAlCostoAmmortizzato2": 500,
-    "AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva2": 500,
-    "UtiliEPerditeDaModificheContrattualiSenzaCancellazioni": -1800,
+    # "RettificheERipreseDiValoreNettePerRischioDiCreditoDi": -1900,
+    # "AttivitaFinanziarieValutateAlCostoAmmortizzato2": 500,
+    # "AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva2": 500,
+    # "UtiliEPerditeDaModificheContrattualiSenzaCancellazioni": -1800,
     "RisultatoNettoDellaGestioneFinanziaria": -50,
-    "RisultatoNettoDellaGestioneFinanziariaEAssicurativa": -5,
+    # "RisultatoNettoDellaGestioneFinanziariaEAssicurativa": -5,
     "SpeseAmministrative": 16000,
-    "SpesePerIlPersonale": 160.5,
-    "AltreSpeseAmministrative": -9500,
-    "AccantonamentiNettiAiFondiPerRischiEOneri": -5500,
-    "ImpegniEGaranzieRilasciate": -4000,
-    "AltriAccantonamentiNetti": 30,
-    "RettificheERipreseDiValoreNetteSuAttivitaMateriali": 40,
-    "RettificheERipreseDiValoreNetteSuAttivitaImmateriali": -10,
-    "AltriOnerERoventiDiGestione": -700,
+    # "SpesePerIlPersonale": 160.5,
+    # "AltreSpeseAmministrative": -9500,
+    # "AccantonamentiNettiAiFondiPerRischiEOneri": -5500,
+    # "ImpegniEGaranzieRilasciate": -4000,
+    # "AltriAccantonamentiNetti": 30,
+    # "RettificheERipreseDiValoreNetteSuAttivitaMateriali": 40,
+    # "RettificheERipreseDiValoreNetteSuAttivitaImmateriali": -10,
+    # "AltriOnerERoventiDiGestione": -700,
     "CostiOperativi": -500,
-    "Utili(perdite)DellePartecipazioni": 550,
-    "Utili(perdite)DaCessioneDiInvestimenti": -10000,
+    # "Utili(perdite)DellePartecipazioni": 550,
+    # "Utili(perdite)DaCessioneDiInvestimenti": -10000,
     #"Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte": 270,
-    "ImposteSulRedditoDellesercizioDelloperativitaCorrente": 30,
+    #"ImposteSulRedditoDellesercizioDelloperativitaCorrente": 30,
     #"Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte": 7000,
-    "Utile(perdita)DiEsercizio": -800,
-    "PersonaleDipendente(valoreAssoluto)": 6200,
+    # "Utile(perdita)DiEsercizio": -800,
+    # "PersonaleDipendente(valoreAssoluto)": 6200,
     "GDPIndex": 6200,
     "UnemploymentRate": 80000,
     "PPI": 3.2,
@@ -66,9 +66,56 @@ mockData = {
     "CostPerEmployee": 20.99,
 }
 
+meanKeys = ['Interessiattividaproventiassimilati',
+       'DiCuiInteressiAttiviCalcolatiConIlMetodoDellInteresseEffettivo',
+       'InteressiPassiviEOneriAssimilati',
+       'CommissioniAttive', 'CommissioniPassive', 
+       'DividendiEProventiSimili', 'RisultatoNettoDellattivitaDiNegoziazione',
+       'RisultatoNettoDellattivitaDiCopertura',
+       'Utili(perdite)DaCessioneORiacquistoDi:',
+       'AttivitaFinanziarieValutateAlCostoAmmortizzato',
+       'AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva',
+       'PassivitaFinanziarie',
+       'RisultatoNettoDelleAltreAttivitaEPassivitaFinanziarieValutateAlFairValueConImpattoAContoEconomico',
+       'AttivitaEPassivitaFinanziarieDesignateAlFairValue',
+       'AltreAttivitaFinanziarieObbligatoriamenteValutateAlFairValue',
+       'RettificheERipreseDiValoreNettePerRischioDiCreditoDi',
+       'AttivitaFinanziarieValutateAlCostoAmmortizzato2',
+       'AttivitaFinanziarieValutateAlFairValueConImpattoSullaRedditivitaComplessiva2',
+       'UtiliEPerditeDaModificheContrattualiSenzaCancellazioni',
+       'RisultatoNettoDellaGestioneFinanziariaEAssicurativa',
+       'SpesePerIlPersonale',
+       'AltreSpeseAmministrative', 'AccantonamentiNettiAiFondiPerRischiEOneri',
+       'ImpegniEGaranzieRilasciate', 'AltriAccantonamentiNetti',
+       'RettificheERipreseDiValoreNetteSuAttivitaMateriali',
+       'RettificheERipreseDiValoreNetteSuAttivitaImmateriali',
+       'AltriOnerERoventiDiGestione', 
+       'Utili(perdite)DellePartecipazioni',
+       'Utili(perdite)DaCessioneDiInvestimenti',
+       'Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte',
+       'ImposteSulRedditoDellesercizioDelloperativitaCorrente',
+       'Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte',
+       'Utile(perdita)DiEsercizio', 'PersonaleDipendente(valoreAssoluto)',
+       ]
+
+frontEndKeys = [
+    'GDPIndex', 'UnemploymentRate',
+    'PPI', 'ExchangesRatesPercentage',
+    'CPIIndex', 'CovidStringencyIndex',
+    'RealInterestRate', 'CostPerEmployee',
+    'MargineDiInteresse', 'CommissioniNette',
+    'MargineDiIntermediazione', 'RisultatoNettoDellaGestioneFinanziaria',
+    'CostiOperativi', 'SpeseAmministrative'
+]
+
 mockTargetVariables= ["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte" , "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"]
 
 mockColumnsToRemove=["Anno", "Banca"]
+
+def createDataToPredictOn (newValues:dict, dataset:pd.DataFrame):
+    dictMeanValues = dataset[meanKeys].mean().to_dict()
+    dictMeanValues.update(newValues)
+    return dictMeanValues
 
 def getPandasDataFrameFromAny(dataset:any)->pd.DataFrame:
     if (isinstance(dataset, str)):
@@ -84,10 +131,10 @@ def getPandasDataFrameFromAny(dataset:any)->pd.DataFrame:
 
     return data
 
-def predictWithNewValues (newValues:str=json.dumps(mockData), targetVariables:list[str]=mockTargetVariables, columnsToRemove:list[str]=mockColumnsToRemove, dataset:any='./AAA_prediction/newDataset.csv'):
+def predictWithNewValues (newValues:str=json.dumps(mockData), targetVariables:list[str]=mockTargetVariables, columnsToRemove:list[str]=mockColumnsToRemove, dataset:any='./AAA_prediction/newDataset.csv')->str:
     data = getPandasDataFrameFromAny (dataset)
 
-    newValues=json.loads(newValues)
+    newValues=createDataToPredictOn (newValues, data)
 
     models = createPredictionModels (
         target_variables=targetVariables,
@@ -120,5 +167,12 @@ def predictWithNewValues (newValues:str=json.dumps(mockData), targetVariables:li
         results[modelName] = forecast_values
     
     return json.dumps(results)
+
+def getDefaultValuesFrontEndVariable (dataset:any)->str:
+    data = getPandasDataFrameFromAny (dataset)
+
+    defaultValues = data[frontEndKeys].mean().to_dict()
+
+    return json.dumps(defaultValues)
 
 print(predictWithNewValues ())

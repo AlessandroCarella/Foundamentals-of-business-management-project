@@ -48,8 +48,8 @@ import pickle
 import os.path as path
 import os
 
-from AAA_prediction.utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
-#from utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
+#from AAA_prediction.utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
+from utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
 
 def getModelFromPickle(modelName: str, target_variables: list[str], columns_to_remove: list[str]) -> any:
     modelPath = path.join(getModelsFolderPath(), modelName + concatStrings(target_variables) + ".pickle")
