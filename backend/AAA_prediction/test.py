@@ -97,4 +97,4 @@ def test ( targetVariables, columnsToRemove ):
         return forecast_values
         #print(type(model.predict(dataToPredictOn_scaled)))
 
-test(targetVariables, columnsToRemove)
+#test(targetVariables, columnsToRemove)

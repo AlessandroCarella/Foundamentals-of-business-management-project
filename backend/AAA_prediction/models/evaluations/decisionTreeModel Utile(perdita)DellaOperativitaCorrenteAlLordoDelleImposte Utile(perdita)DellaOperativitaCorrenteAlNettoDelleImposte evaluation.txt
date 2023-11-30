@@ -1,7 +1,7 @@
-Mean Squared Error: [3114957.9293656 1460480.1372428]
-Mean Absolute Error: [1209.2616  879.6288]
-R-squared: [0.62563287 0.80084764]
-Explained Variance Score: [0.74984769 0.82995255]
+Mean Squared Error: [1505065.565444  1753290.1506468]
+Mean Absolute Error: [1174.1228  956.4776]
+R-squared: [0.81911567 0.76091981]
+Explained Variance Score: [0.8934324  0.76936731]
 Accuracy: 0.4
 Precision: 0.4
 Recall: 0.4
