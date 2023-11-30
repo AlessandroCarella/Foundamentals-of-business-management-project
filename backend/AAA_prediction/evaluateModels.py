@@ -7,7 +7,9 @@ import os
 import numpy as np
 
 from AAA_prediction.createPredictionModels import getModelsFolderPath, concatStrings, getModelFromPickle
+#from createPredictionModels import getModelsFolderPath, concatStrings, getModelFromPickle
 from AAA_prediction.utils import checkFolderExists, modelsNames, getModelsFolderPath, concatStrings
+#from utils import checkFolderExists, modelsNames, getModelsFolderPath, concatStrings
 
 def evaluate_model(model:any, model_name:str, X_test:np.ndarray, y_test:np.ndarray, targetVariables:list[str]):
     predictions = model.predict(X_test)
