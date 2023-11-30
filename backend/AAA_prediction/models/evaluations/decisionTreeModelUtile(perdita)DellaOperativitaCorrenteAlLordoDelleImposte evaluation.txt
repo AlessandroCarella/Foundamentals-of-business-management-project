@@ -1,0 +1,8 @@
+Mean Squared Error: 5703298.608447401
+Mean Absolute Error: 1591.4394
+R-squared: 0.31455654533116906
+Explained Variance Score: 0.4814033575848141
+Accuracy: 0.8
+Precision: 1.0
+Recall: 0.8
+F1 Score: 0.888888888888889
