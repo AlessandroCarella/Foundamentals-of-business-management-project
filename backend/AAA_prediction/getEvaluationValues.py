@@ -58,11 +58,11 @@ def buildModelEvaluationPaths (targetVariables:list[str]):
 
 def getEvaluationValues (targetVariables:list[str]):
     res = {}
-    for modelEvaluationPath in buildModelEvaluationPaths (targetVariables=target_variables):
+    for modelEvaluationPath in buildModelEvaluationPaths (targetVariables=targetVariables):
         res[path.basename(modelEvaluationPath)] = read_metrics_file (modelEvaluationPath)
     return res
     
-target_variables=[
+"""target_variables=[
     "Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", 
     "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"
 ]
@@ -72,6 +72,6 @@ for key, value in results.items():
     print (key)
     for key, subValue in value.items():
         print ("\t", key)
-        print ("\t", subValue)
+        print ("\t", subValue)"""
 
 #print (json.dumps(results))
