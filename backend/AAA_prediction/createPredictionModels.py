@@ -49,8 +49,9 @@ import os.path as path
 import os
 
 #from AAA_prediction.utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
-from utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
 
+from AAA_prediction.utils import modelsNames, concatStrings, getModelsFolderPath, saveToPickleFile
+# added - AAA_prediction. to fix error
 def getModelFromPickle(modelName: str, target_variables: list[str], columns_to_remove: list[str]) -> any:
     modelPath = path.join(getModelsFolderPath(), modelName + concatStrings(target_variables) + ".pickle")
 
@@ -103,7 +104,13 @@ def createPredictionModels (target_variables:list[str], columnsToRemove:list[str
     columnsToRemove.extend (target_variables)
     # Extract features and target variable
     X = data.drop(columns=columnsToRemove, axis=1)
+
+    #see features in X 
+    print(" X values - :" ,X.shape)
+
     y = data[target_variables]
+    #see features in y
+    print(y.shape)
 
     # Optional: Data preprocessing (e.g., normalization)
     X = preprocess_data(X)

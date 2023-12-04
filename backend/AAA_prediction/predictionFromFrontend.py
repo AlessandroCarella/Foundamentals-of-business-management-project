@@ -4,12 +4,12 @@ import json
 import os.path as path
 import pandas as pd
 
-#from AAA_prediction.createPredictionModels import createPredictionModels
-from createPredictionModels import createPredictionModels
-#from AAA_prediction.evaluateModels import evaulateModels
-from evaluateModels import evaulateModels
-#from AAA_prediction.createPredictionModels import getModelFromPickle
-from createPredictionModels import getModelFromPickle
+from AAA_prediction.createPredictionModels import createPredictionModels
+#from createPredictionModels import createPredictionModels
+from AAA_prediction.evaluateModels import evaulateModels
+#from evaluateModels import evaulateModels
+from AAA_prediction.createPredictionModels import getModelFromPickle
+#from createPredictionModels import getModelFromPickle
 
 #mockData usable to test the function
 mockData = {
@@ -114,7 +114,9 @@ mockColumnsToRemove=["Anno", "Banca"]
 
 def createDataToPredictOn (newValues:dict, dataset:pd.DataFrame):
     dictMeanValues = dataset[meanKeys].mean().to_dict()
-    dictMeanValues.update(newValues)
+    #dictMeanValues.update(newValues)
+    newValuesDict = json.loads(newValues)
+    dictMeanValues.update(newValuesDict)
     return dictMeanValues
 
 def getPandasDataFrameFromAny(dataset:any)->pd.DataFrame:
@@ -132,8 +134,12 @@ def getPandasDataFrameFromAny(dataset:any)->pd.DataFrame:
     return data
 
 def predictWithNewValues (newValues:str=json.dumps(mockData), targetVariables:list[str]=mockTargetVariables, columnsToRemove:list[str]=mockColumnsToRemove, dataset:any='./AAA_prediction/newDataset.csv')->str:
-    data = getPandasDataFrameFromAny (dataset)
+    
+    #print(" new Vals - ", newValues)
 
+ 
+    data = getPandasDataFrameFromAny (dataset)
+    #print(" Data  Vals - ", data)
     newValues=createDataToPredictOn (newValues, data)
 
     models = createPredictionModels (

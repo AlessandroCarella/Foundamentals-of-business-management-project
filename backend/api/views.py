@@ -33,5 +33,5 @@ def predict(request):
     #get the parameter
     #pass the params to the model
     #return the model results to the frontend
-    results =  predictWithNewValues(param1, param2, param3,param4)
-    return Response({"data": results})
+    #results =  predictWithNewValues(param1, param2, param3,param4)
+    #return Response({"data": results})
