@@ -181,4 +181,9 @@ def getDefaultValuesFrontEndVariable (dataset:any)->str:
 
     return json.dumps(defaultValues)
 
+#Be sure to call this after calling predictWithNewValues
+from getEvaluationValues import getEvaluationValues
+def getEvaluationValuesFrontend(targetVariables:list[str]=mockTargetVariables)->str:
+    return json.dumps(getEvaluationValues(targetVariables=targetVariables))
+
 print(predictWithNewValues ())

@@ -61,8 +61,8 @@ def getEvaluationValues (targetVariables:list[str]):
     for modelEvaluationPath in buildModelEvaluationPaths (targetVariables=targetVariables):
         res[path.basename(modelEvaluationPath)] = read_metrics_file (modelEvaluationPath)
     return res
-    
-"""target_variables=[
+"""    
+target_variables=[
     "Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte", 
     "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte"
 ]
