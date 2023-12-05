@@ -2,8 +2,8 @@ import re
 import os.path as path
 import json
 
-from createPredictionModels import concatStrings
-from utils import concatStrings, modelsNames
+from AAA_prediction.createPredictionModels import concatStrings
+from AAA_prediction.utils import concatStrings, modelsNames
 
 def read_metrics_file(file_path):
     metrics = {}

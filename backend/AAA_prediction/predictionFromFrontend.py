@@ -10,6 +10,7 @@ from AAA_prediction.evaluateModels import evaulateModels
 #from evaluateModels import evaulateModels
 from AAA_prediction.createPredictionModels import getModelFromPickle
 #from createPredictionModels import getModelFromPickle
+from AAA_prediction.getEvaluationValues import getEvaluationValues
 
 #mockData usable to test the function
 mockData = {
@@ -182,7 +183,6 @@ def getDefaultValuesFrontEndVariable (dataset:any)->str:
     return json.dumps(defaultValues)
 
 #Be sure to call this after calling predictWithNewValues
-from getEvaluationValues import getEvaluationValues
 def getEvaluationValuesFrontend(targetVariables:list[str]=mockTargetVariables)->str:
     return json.dumps(getEvaluationValues(targetVariables=targetVariables))
 
