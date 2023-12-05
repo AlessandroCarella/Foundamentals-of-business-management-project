@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes} from "react-router-dom";
 import Navbar from "./scenes/navbar/index"
 import Dashboard from "./scenes/dashboard";
 import Prediction from "./scenes/prediction/Prediction";
+import { Evaluations } from "./scenes/evaluations/Evaluations";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Routes>
                   <Route path="/" element={<Dashboard/>} />
                   <Route path="/predictions" element={<Prediction/>} />
+                  <Route path="/evaluations" element={<Evaluations/>} />
               </Routes>
            </Box>
         </ThemeProvider>

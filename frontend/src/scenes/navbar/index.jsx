@@ -44,6 +44,18 @@ const Navbar = () => {
             predictions
           </Link>
         </Box>
+        <Box sx={{ "&:hover": { color: palette.primary[400] } }}>
+          <Link
+            to="/evaluations"
+            onClick={() => setSelected("predictions")}
+            style={{
+              color: selected === "predictions" ? "inherit" : palette.grey[700],
+              textDecoration: "inherit",
+            }}
+          >
+            Evaluation
+          </Link>
+        </Box>
       </FlexBetween>
     </FlexBetween>
   );

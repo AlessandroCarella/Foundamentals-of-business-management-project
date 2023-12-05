@@ -10,7 +10,7 @@ import Papa from "papaparse";
 import Inputs from "../../component/Inputs";
 
 const Prediction = () => {
-  const sliderItems = [+
+  const sliderItems = [
     {
       name: "GDPIndex",
       defaultValue: 3.7,
