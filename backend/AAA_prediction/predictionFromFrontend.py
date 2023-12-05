@@ -186,4 +186,4 @@ def getDefaultValuesFrontEndVariable (dataset:any)->str:
 def getEvaluationValuesFrontend(targetVariables:list[str]=mockTargetVariables)->str:
     return json.dumps(getEvaluationValues(targetVariables=targetVariables))
 
-print(predictWithNewValues ())
+print(getEvaluationValuesFrontend(["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte"]))
