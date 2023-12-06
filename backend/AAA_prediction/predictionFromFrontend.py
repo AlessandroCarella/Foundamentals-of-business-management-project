@@ -188,4 +188,4 @@ def getEvaluationValuesFrontend(targetVariables:list[str]=mockTargetVariables)->
     #return json.dumps(getEvaluationValues(targetVariables=targetVariables))
     return getEvaluationValues(targetVariables=targetVariables)
 
-#print(predictWithNewValues ())
+#print(getEvaluationValuesFrontend(["Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte"]))
