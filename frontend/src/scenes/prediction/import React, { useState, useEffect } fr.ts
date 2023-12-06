@@ -323,7 +323,8 @@ const Prediction = () => {
             mt={10}
           >
             <div>
-              {inputFileds.slice(0, 3).map((input) => {
+              {values.length > 0
+                ? inputFileds.slice(0, 3).map((input) => {
                     return (
                       <Inputs
                         key={input.id}
@@ -334,7 +335,7 @@ const Prediction = () => {
                       />
                     );
                   })
-                }
+                : ""}
             </div>
 
             <div>
@@ -402,7 +403,7 @@ const Prediction = () => {
                       ))
                   }
 
-                {/* <Button
+                <Button
                   variant="contained"
                   color="secondary"
                   component="span"
@@ -410,7 +411,7 @@ const Prediction = () => {
                   onClick={fetchData}
                 >
                   Get
-                </Button> */}
+                </Button>
               </Box>
 
               <Box
@@ -432,7 +433,7 @@ const Prediction = () => {
                   />
                 ))}
 
-                {/* <Button
+                <Button
                   variant="contained"
                   color="primary"
                   component="span"
@@ -440,7 +441,7 @@ const Prediction = () => {
                   onClick={postData}
                 >
                   Post
-                </Button> */}
+                </Button>
               </Box>
             </Box>
           </Box>

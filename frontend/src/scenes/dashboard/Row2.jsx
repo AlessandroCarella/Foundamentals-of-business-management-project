@@ -31,8 +31,8 @@ const Row2 = () => {
   ];
 
   const pieData = [
-    { name: "Group A", value: 600 },
-    { name: "Group B", value: 400 },
+    { name: "Group A", value: 8220 },
+    { name: "Group B", value: 1435 },
   ];
 
   const { palette } = useTheme();
@@ -200,7 +200,7 @@ const Row2 = () => {
         </ResponsiveContainer>
       </DashboardBox>
       <DashboardBox gridArea="e">
-        <BoxHeader title="EBIT and Revenue" sideText="+4%" />
+        <BoxHeader title="Profit Margin" sideText="..." />
         <FlexBetween mt="0.25rem" gap="1.5rem" pr="1rem">
           <PieChart
             width={110}
@@ -226,22 +226,22 @@ const Row2 = () => {
             </Pie>
           </PieChart>
           <Box ml="-0.7rem" flexBasis="40%" textAlign="center">
-            <Typography variant="h5">Target Sales</Typography>
+            <Typography variant="h5">Percentage</Typography>
             <Typography m="0.3rem 0" variant="h3" color={palette.primary[300]}>
-              83
+              17,45 %
             </Typography>
             <Typography variant="h6">
-              Finance goals of the campaign that is desired
+              Finance profit of the fiscal year
             </Typography>
           </Box>
           <Box flexBasis="40%">
-            <Typography variant="h5">Losses in Revenue</Typography>
-            <Typography variant="h6">Losses are down 25%</Typography>
+            <Typography variant="h5">Profit of the year (millions) </Typography>
+            <Typography variant="h6"> 1435 </Typography>
             <Typography mt="0.4rem" variant="h5">
-              Profit Margins
+              Net Profit - Financ. Activit. (millions) 
             </Typography>
             <Typography variant="h6">
-              Margins are up by 30% from last month.
+                8220
             </Typography>
           </Box>
         </FlexBetween>

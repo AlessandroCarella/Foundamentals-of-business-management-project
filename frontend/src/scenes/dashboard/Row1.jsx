@@ -158,13 +158,12 @@ const Row1 = () => {
 
 
   const { palette } = useTheme();
-  const { data } = useGetKpisQuery();
   return (
     <>
       <DashboardBox gridArea="a">
         <BoxHeader
           title="PPI vs CPI from  2018 - 2023"
-          subtitle="top line represents net, bottom line represents expenses"
+          subtitle="top line represents PPI, bottom line represents CPI"
           
         />
         <ResponsiveContainer width="100%" height="100%">
@@ -284,13 +283,6 @@ const Row1 = () => {
               type="monotone"
               dataKey="ebit"
               stroke={palette.tertiary[500]}
-            />
-             <Line
-              yAxisId="left"
-              type="monotone"
-              dataKey="ebit"
-              stroke={ (en) => {en.name == "2022" || en.name == "2023"  ?  palette.tertiary[100] :  palette.tertiary[500]}
-            }
             />
             <Line
               yAxisId="right"

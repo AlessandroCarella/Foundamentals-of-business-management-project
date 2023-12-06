@@ -21,29 +21,57 @@ const Row3 = () => {
     
   ];
 
+  const pieData = [
+    { name: "Group A", value: 5874 },
+    { name: "Group B", value: 8220 },
+  ];
+
   const productData = [
-    { id: 2018, ebit: 39490, netinflow: "Jon", age: 35 },
-    { id: 2019, ebit: "Lannister", netinflow: "Cersei", age: 42 },
-    { id: 2020, ebit: "Lannister", netinflow: "Jaime", age: 45 },
-    { id: 2021, ebit: "Stark", netinflow: "Arya", age: 16 },
-    { id: 2022, ebit: "Targaryen", netinflow: "Daenerys", age: null },
-    { id: 2023, ebit: "Melisandre", netinflow: null, age: 150 },
+    { id: 2018, ebit: 729, usage: '5%', afterTax: 692 },
+    { id: 2019, ebit: 734, usage: '3%', afterTax: 711 },
+    { id: 2020, ebit: 748, usage: '9%', afterTax: 683 },
+    { id: 2021, ebit: 656, usage: '0%', afterTax: 656 },
+    { id: 2022, ebit: 662, usage: '7%', afterTax: 615 },
+    { id: 2023, ebit: 956, usage: '2%', afterTax: 936 }
     // { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
     // { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
     // { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ];
 
   const transactionData = [
-    { id: 2, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 1, name: "bank 1",numberEmp:  87352, costEmp: 0.04, totalCostEmp: 37777 },
+    { id: 2, name: "bank 2",numberEmp: 20825, costEmp: 0.08, totalCostEmp: 1648 },
+    { id: 3, name: "bank 3",numberEmp: 10751, costEmp: 0.34, totalCostEmp: 36500 },
+    { id: 4, name: "bank 4",numberEmp: 91338, costEmp:  0.07, totalCostEmp: 12504  },
+    { id: 5, name: "bank 5",numberEmp: 20563, costEmp: 0.08, totalCostEmp:  33584},
+   
   ];
+
+  const transactionColumns = [
+    {
+      field: "name",
+      headerName: "Bank",
+      flex: 0.3,
+    },
+    {
+      field: "numberEmp",
+      headerName: "Number of Employees",
+      flex: 0.5,
+    },
+    {
+      field: "costEmp",
+      headerName: "Cost Per Emp.",
+      flex: 0.67,
+    },
+    {
+      field: "totalCostEmp",
+      headerName: "Total Cost per Emp.",
+      flex: 0.5,
+      renderCell: (GridCellParams) => `${GridCellParams.value}`,
+    }
+  ];
+
+
   const productColumns = [
     {
       field: "id",
@@ -54,40 +82,37 @@ const Row3 = () => {
       field: "ebit",
       headerName: "Earnings Before Income Tax (EBIT)",
       flex: 0.8,
-      renderCell: (GridCellParams) => `$${GridCellParams.value}`,
+      renderCell: (GridCellParams) => `€ ${GridCellParams.value}`,
     },
     {
-      field: "age",
+      field: "usage",
+      headerName: "% Taxed",
+      flex: 0.5,
+      renderCell: (GridCellParams) => {
+        const value = GridCellParams.value;
+        let cellColor = 'black'; // Default color
+    
+        // Example: Change color to red if the value is greater than 5%
+        if (parseFloat(value) > 5) {
+          cellColor = 'red';
+        }
+    
+        return (
+          <span style={{ color: cellColor }}>
+            `{GridCellParams.value}`
+          </span>
+        );
+      },
+    },
+    {
+      field: "afterTax",
       headerName: "Revenue",
       flex: 0.5,
-      renderCell: (GridCellParams) => `$${GridCellParams.value}`,
+      renderCell: (GridCellParams) => `€ ${GridCellParams.value}`,
     },
   ];
 
-  const transactionColumns = [
-    {
-      field: "_id",
-      headerName: "id",
-      flex: 1,
-    },
-    {
-      field: "buyer",
-      headerName: "Buyer",
-      flex: 0.67,
-    },
-    {
-      field: "amount",
-      headerName: "Amount",
-      flex: 0.35,
-      renderCell: (GridCellParams) => `$${GridCellParams.value}`,
-    },
-    {
-      field: "productIds",
-      headerName: "Count",
-      flex: 0.1,
-      renderCell: (GridCellParams) => GridCellParams.length,
-    },
-  ];
+  
 
   const { palette } = useTheme();
   const pieColors = [palette.primary[800], palette.primary[500]];
@@ -96,8 +121,8 @@ const Row3 = () => {
     <>
       <DashboardBox gridArea="g">
         <BoxHeader
-          title="List of Products"
-          sideText={`${productData?.length} products`}
+          title="Revenue before Income tax (millions)"
+          sideText={`...`}
         />
         <Box
           mt="0.5rem"
@@ -130,8 +155,8 @@ const Row3 = () => {
       </DashboardBox>
       <DashboardBox gridArea="h">
         <BoxHeader
-          title="Recent Orders"
-          sideText={`${transactionData?.length} latest transactions`}
+          title="Employees"
+          sideText={`:`}
         />
         <Box
           mt="1rem"
@@ -163,7 +188,54 @@ const Row3 = () => {
         </Box>
       </DashboardBox>
       <DashboardBox gridArea="i">
-        <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
+        <BoxHeader title="Operating Expense Ratio" sideText="..." />
+        <FlexBetween mt="0.25rem" gap="1.5rem" pr="1rem">
+          <PieChart
+            width={110}
+            height={100}
+            margin={{
+              top: 0,
+              right: -10,
+              left: 10,
+              bottom: 0,
+            }}
+          >
+            <Pie
+              stroke="none"
+              data={pieData}
+              innerRadius={18}
+              outerRadius={38}
+              paddingAngle={2}
+              dataKey="value"
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={pieColors[index]} />
+              ))}
+            </Pie>
+          </PieChart>
+          <Box ml="-0.7rem" flexBasis="40%" textAlign="center">
+            <Typography variant="h5">Percentage</Typography>
+            <Typography m="0.3rem 0" variant="h3" color={palette.primary[300]}>
+              71,45 %
+            </Typography>
+            <Typography variant="h6">
+              {/* Finance profit of the fiscal year */}
+            </Typography>
+          </Box>
+          <Box flexBasis="40%">
+            <Typography variant="h5">Operating Cost (millions) </Typography>
+            <Typography variant="h6"> 5874 </Typography>
+            <Typography mt="0.4rem" variant="h5">
+              Revenue (millions) 
+            </Typography>
+            <Typography variant="h6">
+                8220
+            </Typography>
+          </Box>
+        </FlexBetween>
+      </DashboardBox>
+      {/* <DashboardBox gridArea="i">
+        <BoxHeader title="Expense Breakdown By Category" sideText=":" />
         <FlexBetween mt="0.5rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {pieChartData?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
@@ -185,11 +257,11 @@ const Row3 = () => {
             </Box>
           ))}
         </FlexBetween>
-      </DashboardBox>
+      </DashboardBox> */}
       <DashboardBox gridArea="j">
         <BoxHeader
-          title="Overall Summary and Explanation Data"
-          sideText="+15%"
+          title="Expected Net Income Compared to Last Year"
+          sideText="+89%"
         />
         <Box
           height="15px"
@@ -201,14 +273,11 @@ const Row3 = () => {
             height="15px"
             bgcolor={palette.primary[600]}
             borderRadius="1rem"
-            width="40%"
+            width="89%"
           ></Box>
         </Box>
         <Typography margin="0 1rem" variant="h6">
-          Orci aliquam enim vel diam. Venenatis euismod id donec mus lorem etiam
-          ullamcorper odio sed. Ipsum non sed gravida etiam urna egestas
-          molestie volutpat et. Malesuada quis pretium aliquet lacinia ornare
-          sed. In volutpat nullam at est id cum pulvinar nunc.
+          Suggests a comparison of the anticipated net income of resources (e.g., money, investments, revenue) in the current period with that of the previous year. 
         </Typography>
       </DashboardBox>
     </>

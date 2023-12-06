@@ -20,7 +20,7 @@ const ResultsTable = ({ data }) => {
   const tableData = React.useMemo(
     () => [
       {
-        model: 'Model 1',
+        model: 'Decision Tree',
         mse: data[2][0].toFixed(2),
         mae: data[2][0].toFixed(2),
         rSquared: data[2][0].toFixed(2),
@@ -31,7 +31,42 @@ const ResultsTable = ({ data }) => {
         f1Score: data[7].toFixed(2),
       },
       {
-        model: 'Model 2',
+        model: 'RidgeModel',
+        mse: data[2][1].toFixed(2),
+        mae: data[3][1].toFixed(2),
+        rSquared: data[2][1].toFixed(2),
+        explainedVariance: data[3][1].toFixed(2),
+        accuracy: 'N/A', // Adjust based on your actual data
+        precision: 'N/A',
+        recall: 'N/A',
+        f1Score: 'N/A',
+      },
+
+      {
+        model: 'Elastic Net',
+        mse: data[2][1].toFixed(2),
+        mae: data[3][1].toFixed(2),
+        rSquared: data[2][1].toFixed(2),
+        explainedVariance: data[3][1].toFixed(2),
+        accuracy: 'N/A', // Adjust based on your actual data
+        precision: 'N/A',
+        recall: 'N/A',
+        f1Score: 'N/A',
+      },
+
+      {
+        model: 'Lasso',
+        mse: data[2][1].toFixed(2),
+        mae: data[3][1].toFixed(2),
+        rSquared: data[2][1].toFixed(2),
+        explainedVariance: data[3][1].toFixed(2),
+        accuracy: 'N/A', // Adjust based on your actual data
+        precision: 'N/A',
+        recall: 'N/A',
+        f1Score: 'N/A',
+      },
+      {
+        model: 'LinearRegression',
         mse: data[2][1].toFixed(2),
         mae: data[3][1].toFixed(2),
         rSquared: data[2][1].toFixed(2),
