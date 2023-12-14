@@ -78,7 +78,6 @@ export const sliderSlice = createSlice( {
             const newTodo = action.payload
             state.sliders = newTodo
         }
-
     }
 })
 

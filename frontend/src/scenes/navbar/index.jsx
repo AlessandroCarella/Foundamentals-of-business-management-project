@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Box, Typography, useTheme } from "@mui/material";
 import FlexBetween from "../../component/FlexBetween";
 import PixIcon from "@mui/icons-material/Pix";
@@ -7,7 +7,12 @@ import PixIcon from "@mui/icons-material/Pix";
 const Navbar = () => {
   const { palette } = useTheme();
 
-  const [selected, setSelected] = useState("dashboard");
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  console.log("Current P ", currentPath);
+  
+  const [selected, setSelected] = useState("predictions");
   return (
     <FlexBetween mb="0.25rem" p="0.5rem 0rem" color={palette.grey[300]}>
       {/* LEFT SIDE */}
@@ -22,7 +27,7 @@ const Navbar = () => {
       <FlexBetween gap="2rem">
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
-            to="/"
+            to="/dashboard"
             onClick={() => setSelected("dashboard")}
             style={{
               color: selected === "dashboard" ? "inherit" : palette.grey[700],
@@ -34,10 +39,10 @@ const Navbar = () => {
         </Box>
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
-            to="/predictions"
+            to="/"
             onClick={() => setSelected("predictions")}
             style={{
-              color: selected === "predictions" ? "inherit" : palette.grey[700],
+              color: selected === "predictions" && currentPath  != "/evaluations" ? "inherit" : palette.grey[700],
               textDecoration: "inherit",
             }}
           >
@@ -49,7 +54,7 @@ const Navbar = () => {
             to="/evaluations"
             onClick={() => setSelected("evaluation")}
             style={{
-              color: selected === "evaluation" ? "inherit" : palette.grey[700],
+              color: selected === "evaluation" || currentPath  === "/evaluations"? "inherit" : palette.grey[700],
               textDecoration: "inherit",
             }}
           >

@@ -1,8 +1,16 @@
 import React from "react";
-import {Box} from "@mui/material";
+import { Box } from "@mui/material";
 import Slider from "@mui/material/Slider";
 
-const ParamSliders = ({name,defaultValue, step, min, max, handleChange}) => {
+const ParamSliders = ({
+  name,
+  defaultValue,
+  value,
+  step,
+  min,
+  max,
+  handleChange,
+}) => {
   return (
     <Box
       sx={{
@@ -30,6 +38,7 @@ const ParamSliders = ({name,defaultValue, step, min, max, handleChange}) => {
           valueLabelDisplay="auto"
           onChange={handleChange}
           name={name}
+          value={value}
         />
       </>
     </Box>

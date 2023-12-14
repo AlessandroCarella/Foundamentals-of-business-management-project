@@ -7,9 +7,13 @@ import { Button, Typography, CircularProgress, Paper, Table,
   TableHead,
   TableRow, } from "@mui/material";
 import ResultsTable from "./Results";
+import usePredictors from "../../hooks/usePredictors";
 
 
 export const Evaluations = () => {
+
+  const { evaluation } = usePredictors(); 
+
   const sampleData = [
     1528545.49,
     1821819.70,
@@ -84,6 +88,8 @@ export const Evaluations = () => {
   const handleActivateModel = (model) => {
     setActiveModel(model);
   };
+
+  console.log(" Evaluation - ", evaluation)
 
   return (
     <Paper elevation={3}>

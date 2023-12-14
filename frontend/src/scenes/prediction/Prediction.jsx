@@ -3,226 +3,162 @@ import { styled } from "@mui/material/styles";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Button, Typography, CircularProgress, Paper } from "@mui/material";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
-import Slider from "@mui/material/Slider";
+import NextPlanIcon from '@mui/icons-material/NextPlan';
 import ParamSliders from "../../component/ParamSliders";
-import axios from "axios";
 import Papa from "papaparse";
 import Inputs from "../../component/Inputs";
 import image from "../../assets/barber.svg";
-import { sliderSlice } from "../../slice";
-import { useDispatch, useSelector } from "react-redux";
+import image1 from "../../assets/data.svg";
+import usePredictors from "../../hooks/usePredictors";
+import { useNavigate } from "react-router-dom";
+
+const sliderItems = [
+  {
+    name: "GDPIndex",
+    defaultValue: 2,
+    value: 2,
+    step: 0.5,
+    min: -16,
+    max: +20,
+  },
+  {
+    name: "PPI",
+    defaultValue: 3.7,
+    value: 0,
+    step: 0.5,
+    min: -2,
+    max: 30,
+  },
+  {
+    name: "UnemploymentRate",
+    defaultValue: 1,
+    value: 0,
+    step: 1,
+    min: 1,
+    max: 100,
+  },
+  {
+    name: "ExchangesRatesPercentage",
+    defaultValue: 3.7,
+    value: 0,
+    step: 0.5,
+    min: -16,
+    max: +20,
+  },
+  {
+    name: "CPIIndex",
+    defaultValue: 3.7,
+    value: 0,
+    step: 0.5,
+    min: -2,
+    max: 30,
+  },
+  {
+    name: "CovidStringencyIndex",
+    defaultValue: 1,
+    value: 0,
+    step: 1,
+    min: 1,
+    max: 50,
+  },
+  {
+    name: "RealInterestRate",
+    defaultValue: 3.7,
+    value: 0,
+    step: 0.5,
+    min: -2,
+    max: 30,
+  },
+  {
+    name: "CostPerEmployee",
+    defaultValue: 1,
+    value: 0,
+    step: 1,
+    min: 1,
+    max: 50,
+  },
+  {
+    id: "11",
+    name: "MargineDiInteresse",
+    defaultValue: 0,
+    type: "text",
+    label: "MargineDiInteresse",
+  },
+  {
+    id: "12",
+    name: "CommissioniNette",
+    defaultValue: 0,
+    type: "text",
+    label: "CommissioniNette",
+  },
+  {
+    id: "13",
+    name: "MargineDiIntermediazione",
+    defaultValue: 0,
+    type: "text",
+    label: "MargineDiIntermediazione",
+  },
+  {
+    id: "14",
+    name: "RisultatoNettoDellaGestioneFinanziaria",
+    defaultValue: 0,
+    type: "text",
+    label: "RisultatoNettoDellaGestioneFinanziaria",
+  },
+  {
+    id: "15",
+    name: "CostiOperativi",
+    defaultValue: 0,
+    type: "text",
+    label: "CostiOperativi",
+  },
+  {
+    id: "16",
+    name: "SpeseAmministrative",
+    defaultValue: 0,
+    type: "text",
+    label: "SpeseAmministrative",
+  },
+];
 
 const Prediction = () => {
-  const dispatch = useDispatch();
-  const Information = useSelector((state) => state.slider)
-  const setSliders = (data) => {
-    dispatch(
-      sliderSlice({
-        data,
-      })
-    );
-  };
+  const { values, setValues, fetchDataFromApi } = usePredictors();
 
-  const [values, setValues] = useState({
-    MargineDiInteresse: 0,
-    CommissioniNette:  0 ,
-    MargineDiIntermediazione: 5,
-    RisultatoNettoDellaGestioneFinanziaria: 1,
-    CostiOperativi: 2,
-    SpeseAmministrative: 3,
-    GDPIndex: 0,
-    PPI: 0,
-    UnemploymentRate: 0,
-    ExchangesRatesPercentage: 0,
-    CPIIndex: 0,
-    CovidStringencyIndex: 0,
-    RealInterestRate: 0,
-    CostPerEmployee: 0,
-  });
+  const [hideSliders, setHideSlider] = useState(true);
 
-  const initialSliderItems = [
-    {
-      name: "GDPIndex",
-      defaultValue: 3,
-      value: 7,
-      step: 0.5,
-      min: -16,
-      max: +20,
-    },
-    {
-      name: "PPI",
-      defaultValue: 3.7,
-      value: 0,
-      step: 0.5,
-      min: -2,
-      max: 30,
-    },
-    {
-      name: "UnemploymentRate",
-      defaultValue: 1,
-      value: 0,
-      step: 1,
-      min: 1,
-      max: 50,
-    },
-    {
-      name: "ExchangesRatesPercentage",
-      defaultValue: 3.7,
-      value: 0,
-      step: 0.5,
-      min: -16,
-      max: +20,
-    },
-    {
-      name: "CPIIndex",
-      defaultValue: 3.7,
-      value: 0,
-      step: 0.5,
-      min: -2,
-      max: 30,
-    },
-    {
-      name: "CovidStringencyIndex",
-      defaultValue: 1,
-      value: 0,
-      step: 1,
-      min: 1,
-      max: 50,
-    },
-    {
-      name: "RealInterestRate",
-      defaultValue: 3.7,
-      value: 0,
-      step: 0.5,
-      min: -2,
-      max: 30,
-    },
-    {
-      name: "CostPerEmployee",
-      defaultValue: 1,
-      value: 0,
-      step: 1,
-      min: 1,
-      max: 50,
-    },
-  ];
+  
 
-  const [sliderItems, setSliderItems] = useState(initialSliderItems);
-
-  const [hideSliders, setHideSlider] = useState(false);
-
-  const [prediction, setPrediction] = useState();
-
-  // useEffect(() => {
-
-  // }, [values])
-
-  const inputFileds = [
-    {
-      id: "11",
-      name: "MargineDiInteresse",
-      placeholder: "",
-      type: "text",
-      label: "MargineDiInteresse",
-    },
-    {
-      id: "12",
-      name: "CommissioniNette",
-      placeholder: "",
-      type: "text",
-      label: "CommissioniNette",
-    },
-    {
-      id: "13",
-      name: "MargineDiIntermediazione",
-      placeholder: "",
-      type: "text",
-      label: "MargineDiIntermediazione",
-    },
-    {
-      id: "14",
-      name: "RisultatoNettoDellaGestioneFinanziaria",
-      placeholder: "",
-      type: "text",
-      label: "RisultatoNettoDellaGestioneFinanziaria",
-    },
-    {
-      id: "15",
-      name: "CostiOperativi",
-      placeholder: "",
-      type: "text",
-      label: "CostiOperativi",
-    },
-    {
-      id: "16",
-      name: "SpeseAmministrative",
-      placeholder: "",
-      type: "text",
-      label: "SpeseAmministrative",
-    },
-  ];
+  useEffect(() => {
+    console.log("Slider was updated - ", sliderItems);
+    console.log("Values was updated - ", values);
+  }, [sliderItems, values]);
 
   const handleTextChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     console.log("Here are the values of Inputs ", values);
   };
 
-  async function postData() {
-    const url = "http://127.0.0.1:8000/predict/";
-    const data = {
-      key2: [
-        "Utile(perdita)DellaOperativitaCorrenteAlLordoDelleImposte",
-        "Utile(perdita)DellaOperativitaCorrenteAlNettoDelleImposte",
-      ],
-      key3: ["Anno", "Banca"],
-      key1: JSON.stringify(""),
-      path: "./AAA_prediction/predictdata.csv",
-    };
+  const postData = async () => {
+    // Call the function to fetch data from the API
+    await fetchDataFromApi();
 
-    try {
-      const response = await axios.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-          // Add any other headers if needed
-        },
-      });
-
-      console.log("Response:", response.data);
-
-      let apiResponse = response.data;
-      setValues(apiResponse.meanValues);
-      
-
-      // Update default values based on meanValues
-      initialSliderItems.forEach((slider) => {
-        if (apiResponse.meanValues.hasOwnProperty(slider.name)) {
-          slider.defaultValue = apiResponse.meanValues[slider.name];
-        }
-      });
-
-      console.log(initialSliderItems);
-      console.log("Values - ", values);
-      setHideSlider(values.length > 0 ? true : false);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
-
-  async function fetchData() {
-    const response = await fetch("http://127.0.0.1:8000/");
-    const data = await response.json();
-    console.log(data); // Output: { message: 'Hello from the server!' }
-  }
+    // Other logic related to postData if needed
+  };
 
   const handleChange = (e) => {
     //console.log(e, i, activeThumb);
     setValues({ ...values, [e.target.name]: e.target.value });
-    //console.log("GDP is ", values);
+    //console.log("slider values  ", values);
   };
 
-  function valuetext(value) {
-    return `${value}°C`;
-  }
+  const navigate = useNavigate();
+
+
+  const send2evaluation = () => {
+    // Change the path as needed
+    navigate('/evaluations');
+  };
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -254,6 +190,8 @@ const Prediction = () => {
     // Perform your file upload logic here
 
     // For demonstration purposes, simulate a delay with setTimeout
+    /// show the predictiors
+    setHideSlider(false)
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -290,7 +228,7 @@ const Prediction = () => {
             }}
           >
             <Typography variant="h5" gutterBottom>
-               Upload a Dataset to use prediction parameters
+              Upload a Dataset to use prediction parameters
             </Typography>
             <input
               accept=".csv"
@@ -323,33 +261,47 @@ const Prediction = () => {
             mt={10}
           >
             <div>
-              {inputFileds.slice(0, 3).map((input) => {
-                    return (
-                      <Inputs
-                        key={input.id}
-                        inputName={input.name}
-                        {...input}
-                        value={values[input.name]}
-                        handleTextChange={handleTextChange}
-                      />
-                    );
-                  })
-                }
-            </div>
-
-            <div>
-              {inputFileds.slice(3, 6).map((input) => {
+              {sliderItems.slice(8, 11).map((input) => {
                 return (
                   <Inputs
                     key={input.id}
                     inputName={input.name}
-                    {...input}
                     value={values[input.name]}
                     handleTextChange={handleTextChange}
                   />
                 );
               })}
             </div>
+
+            <div>
+              {sliderItems.slice(11, 14).map((input) => {
+                return (
+                  <Inputs
+                    key={input.id}
+                    inputName={input.name}
+                    value={values[input.name]}
+                    handleTextChange={handleTextChange}
+                  />
+                );
+              })}
+            </div>
+          </Box>
+          <Box
+            display={hideSliders ? " none" : "flex"}
+            alignContent={"center"}
+            justifyContent={"center"}
+            mx={"10px"}
+          >
+            <Button
+              fullWidth="true"
+              variant="contained"
+              color="primary"
+              component="span"
+              startIcon={<NextPlanIcon />}
+              onClick={send2evaluation}
+            >
+              Start Forecasting 
+            </Button>
           </Box>
         </Box>
 
@@ -387,20 +339,18 @@ const Prediction = () => {
                 width="100%"
                 height="100%"
               >
-                {initialSliderItems
-                      .slice(0, 4)
-                      .map((item, index) => (
-                        <ParamSliders
-                          key={index}
-                          name={item.name}
-                          defaultValue={item.defaultValue}
-                          step={item.step}
-                          min={item.min}
-                          max={item.max}
-                          handleChange={handleChange}
-                        />
-                      ))
-                  }
+                {sliderItems.slice(0, 4).map((item, index) => (
+                  <ParamSliders
+                    key={index}
+                    name={item.name}
+                    defaultValue={values[item.name]}
+                    value={values[item.name]}
+                    step={item.step}
+                    min={item.min}
+                    max={item.max}
+                    handleChange={handleChange}
+                  />
+                ))}
 
                 {/* <Button
                   variant="contained"
@@ -420,11 +370,12 @@ const Prediction = () => {
                 width="100%"
                 height="100%"
               >
-                {initialSliderItems.slice(4, 8).map((item, index) => (
+                {sliderItems.slice(4, 8).map((item, index) => (
                   <ParamSliders
                     key={index}
                     name={item.name}
-                    defaultValue={item.defaultValue}
+                    defaultValue={values[item.name]}
+                    value={values[item.name]}
                     step={item.step}
                     min={item.min}
                     max={item.max}
@@ -473,7 +424,13 @@ const Prediction = () => {
                 width="100%"
                 height="100%"
               >
-                <img src={image} alt="" width={"300px"} height={"500px"} />
+                <img
+                  src={image1}
+                  alt=""
+                  width={"200px"}
+                  height={"500px"}
+                  style={{ width: "400px" }}
+                />
               </Box>
             </Box>
           </Box>

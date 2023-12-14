@@ -180,8 +180,11 @@ def getDefaultValuesFrontEndVariable (dataset:any)->str:
 
     defaultValues = data[frontEndKeys].mean().to_dict()
 
-    #return json.dumps(defaultValues)
-    return defaultValues
+    res = {}
+    for key, value in defaultValues.items():
+        res[key] = round (value, 2)
+
+    return res
 
 #Be sure to call this after calling predictWithNewValues
 def getEvaluationValuesFrontend(targetVariables:list[str]=mockTargetVariables)->str:

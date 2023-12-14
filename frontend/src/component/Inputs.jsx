@@ -2,7 +2,7 @@ import React from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 
-const Inputs = ({ key, inputName, handleTextChange, value }) => {
+const Inputs = ({ key, inputName, handleTextChange, value, ...defaultprops }) => {
   return (
     <>
       
@@ -17,7 +17,9 @@ const Inputs = ({ key, inputName, handleTextChange, value }) => {
         }}
         variant="filled"
         onChange={handleTextChange}
-        defaultValue={value}
+        value={value}
+        type="number"
+        {...defaultprops}
         
       />
     </>

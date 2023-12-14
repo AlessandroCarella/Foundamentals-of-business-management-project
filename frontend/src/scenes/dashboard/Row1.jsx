@@ -156,7 +156,6 @@ const Row1 = () => {
     },
   ];
 
-
   const { palette } = useTheme();
   return (
     <>
@@ -164,7 +163,6 @@ const Row1 = () => {
         <BoxHeader
           title="PPI vs CPI from  2018 - 2023"
           subtitle="top line represents PPI, bottom line represents CPI"
-          
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -252,6 +250,21 @@ const Row1 = () => {
               bottom: 55,
             }}
           >
+            <defs>
+              <linearGradient id="colorUv" x1="0%" y1="0" x2="100%" y2="0">
+                <stop offset="0%" stopColor={palette.tertiary[500]} />
+                <stop offset={`80%`} stopColor={palette.tertiary[500]} />
+                <stop offset={`80%`} stopColor={"#cfceef"} />
+                <stop offset={`${100}%`} stopColor={"#cfceef"}/>
+              </linearGradient>
+
+              <linearGradient id="colorUv1" x1="0%" y1="0" x2="100%" y2="0">
+                <stop offset="0%" stopColor={palette.primary.main} />
+                <stop offset={`80%`} stopColor={palette.primary.main} />
+                <stop offset={`80%`} stopColor={"#b6c2b3"} />
+                <stop offset={`${100}%`} stopColor={"#b6c2b3"}/>
+              </linearGradient>
+            </defs>
             <CartesianGrid vertical={false} stroke={palette.grey[800]} />
             <XAxis
               dataKey="name"
@@ -282,13 +295,13 @@ const Row1 = () => {
               yAxisId="left"
               type="monotone"
               dataKey="ebit"
-              stroke={palette.tertiary[500]}
+              stroke="url(#colorUv)"
             />
             <Line
               yAxisId="right"
               type="monotone"
               dataKey="netIncome"
-              stroke={palette.primary.main}
+              stroke="url(#colorUv1)"
             />
           </LineChart>
         </ResponsiveContainer>
